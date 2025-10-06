@@ -104,7 +104,10 @@ def show_qpos_history(history: list):
     plt.xlim(-max_range, max_range)
     plt.ylim(-max_range, max_range)
 
-    plt.show()
+    #plt.show()
+    plt.savefig("__videos__/path_xy.png", dpi=150, bbox_inches="tight")
+    plt.close()
+    
 
 
 def main():
