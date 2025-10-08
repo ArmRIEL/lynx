@@ -21,10 +21,11 @@ def lynx_manipulator(
         "l_link2": 0.2805,
         "l_link3": 0.3055,
         "joint_types": ["inline", "inline", "orthogonal", "orthogonal", "orthogonal", "orthogonal"],
+        "joint_angles": [0, -np.pi, 0, np.pi, 0, 0],  # defaults from original function
         "control_mode": "position",
     }
 ):
-    """Build a Lynx manipulator with variable joint types and link lengths."""
+    """Build a Lynx manipulator with variable joint types, link lengths, and joint angles."""
 
     # --- Helper to choose joint type ---
     def make_joint(joint_type, name, **kwargs):
@@ -40,8 +41,10 @@ def lynx_manipulator(
         name="lynx_base",
     )
 
+    # --- Extract parameters ---
     cmode = robot_description_dict.get("control_mode", CONTROL_MODE)
     jt = robot_description_dict.get("joint_types", ["inline"] * 6)
+    ja = robot_description_dict.get("joint_angles", [0, -np.pi, 0, np.pi, 0, 0])
     l2 = robot_description_dict.get("l_link2", 0.2805)
     l3 = robot_description_dict.get("l_link3", 0.3055)
 
@@ -53,7 +56,7 @@ def lynx_manipulator(
         cylinder_radius1=0.062,
         cylinder_length2=(0.013 + 0.035) * 2 + 0.001,
         cylinder_radius2=0.062,
-        angle=0,
+        angle=ja[0],
         control_mode=cmode,
         armature=0.01, damping=100000, frictionloss=1e-6,
     )
@@ -65,7 +68,7 @@ def lynx_manipulator(
         cylinder_radius1=0.062,
         cylinder_length2=0.013 * 2,
         cylinder_radius2=0.062,
-        angle=-np.pi,
+        angle=ja[1],
         control_mode=cmode,
         armature=0.01, damping=100000, frictionloss=1e-6,
     )
@@ -83,7 +86,7 @@ def lynx_manipulator(
         cylinder_radius1=0.042,
         cylinder_length2=0.029,
         cylinder_radius2=0.042,
-        angle=0,
+        angle=ja[2],
         control_mode=cmode,
         armature=0.01, damping=100000, frictionloss=1e-6,
     )
@@ -95,7 +98,7 @@ def lynx_manipulator(
         cylinder_radius1=0.042,
         cylinder_length2=0.029,
         cylinder_radius2=0.042,
-        angle=np.pi,
+        angle=ja[3],
         control_mode=cmode,
         armature=0.01, damping=100000, frictionloss=1e-6,
     )
@@ -113,7 +116,7 @@ def lynx_manipulator(
         cylinder_radius1=0.042,
         cylinder_length2=0.027,
         cylinder_radius2=0.042,
-        angle=0,
+        angle=ja[4],
         control_mode=cmode,
         armature=0.01, damping=100000, frictionloss=1e-6,
     )
@@ -125,7 +128,7 @@ def lynx_manipulator(
         cylinder_radius1=0.042,
         cylinder_length2=0.027,
         cylinder_radius2=0.042,
-        angle=0,
+        angle=ja[5],
         control_mode=cmode,
         armature=0.01, damping=100000, frictionloss=1e-6,
     )
