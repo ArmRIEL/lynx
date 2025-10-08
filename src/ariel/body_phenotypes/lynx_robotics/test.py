@@ -12,7 +12,6 @@ robot_description = {
     "l_link2": 0.2805,
     "l_link3": 0.3055,
     "joint_types": ["inline", "inline", "orthogonal", "orthogonal", "orthogonal", "orthogonal"],
-    # defaults from original function
     "joint_angles": [0, -np.pi, 0, np.pi, 0, 0],
     "control_mode": "position",
 }
